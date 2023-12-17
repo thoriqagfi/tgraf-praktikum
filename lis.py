@@ -43,7 +43,11 @@ def lengthOfLIS(nums):
     # longest increasing subsequence.
     return [len(ans), [ans]]
 
+# sequence of numbers array
 arr = [4, 1, 13, 7, 0, 2, 8, 11, 3]
+# print sequence of numbers in array
 print("The array is: " + str(arr))
+# print length of longest increasing subsequence
 print("The length of the LIS is: " + str(lengthOfLIS(arr)[0]))
+# print the LIS
 print("The LIS is: " + str(lengthOfLIS(arr)[1]) + "\n")
