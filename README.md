@@ -1,4 +1,4 @@
-# Praktikum 1 & 2 Teori Graf
+![image](https://github.com/thoriqagfi/tgraf-praktikum/assets/103252800/c141c9b9-6ea1-44fb-b830-6c9d47107295)# Praktikum 1 & 2 Teori Graf
 
 ### Kelas : Teori Graf C
 
@@ -15,8 +15,6 @@
 
 <img width="600" alt="image" src="https://github.com/thoriqagfi/tgraf-praktikum/assets/103252800/155ba72a-841b-40e3-b7a9-94cd2267d6cb">
 <img width="600" alt="image" src="https://github.com/thoriqagfi/tgraf-praktikum/assets/103252800/cb5273fd-55bf-4f1a-a612-c08c5cd198bf">
-
-
 
 ## Praktikum 2
 
