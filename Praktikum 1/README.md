@@ -5,11 +5,11 @@
 
 ## Jawab :
 
-Colab Link : https://colab.research.google.com/drive/1Zpr6a8mswKrPYaG9_VA79ptvpHAMy-q2?usp=sharing
+### Colab Link : https://colab.research.google.com/drive/1Zpr6a8mswKrPYaG9_VA79ptvpHAMy-q2?usp=sharing
 
-Video Demo : https://youtu.be/Xyg-RuKVWnw
+### Video Demo : https://youtu.be/Xyg-RuKVWnw
 
-Source Code :
+### Source Code :
 
 ```
 import math
@@ -67,22 +67,31 @@ print("The array is: " + str(arr))
 print("The Length of the LIS is:", findLIS(arr))
 ```
 
-Output :
+### Output :
+
+```
 The array is: [4, 1, 13, 7, 0, 2, 8, 11, 3]
 The Length of the LIS is: 4
+```
 
-Penjelasan :
+### Penjelasan :
 
-Function to compare two pairs
+- Function to compare two pairs
+
+```
 def compare(p1, p2):
 if p1[0] == p2[0]:
 return p1[1] > p2[1]
 return p1[0] < p2[0]
+```
+
 Keterangan :
 Untuk nilai yang sama, elemen dengan indeks lebih tinggi muncul lebih awal dalam sorted array. Ini untuk strictly increasing subsequence. Untuk increasing subsequence, indeks yang lebih rendah muncul lebih awal dalam sorted array.
 Fungsi ini membandingkan dua parameter, `p1` dan `p2`, yang diasumsikan sebagai pasangan nilai. Fungsi mengembalikan nilai `True` jika elemen pertama dari `p1` sama dengan elemen pertama dari `p2` dan elemen kedua dari `p1` lebih besar dari elemen kedua dari `p2`. Jika elemen pertama tidak sama, maka fungsi mengembalikan nilai `True` jika elemen pertama dari `p1` kurang dari elemen pertama dari `p2`. Jadi, fungsi ini membandingkan pasangan nilai berdasarkan aturan yang disebutkan di atas.
 
-Function to build the entire Segment tree, the root of which contains the length of the LIS
+- Function to build the entire Segment tree, the root of which contains the length of the LIS
+
+```
 def buildTree(tree, pos, low, high, index, value):
 if index < low or index > high:
 return
@@ -94,15 +103,14 @@ mid = (high + low) // 2
     if 2 * pos + 2 >= len(tree):
         tree.extend([0] * (2 * pos + 2 - len(tree) + 1))
 
-
     buildTree(tree, 2 * pos + 1, low, mid, index, value)
     buildTree(tree, 2 * pos + 2, mid + 1, high, index, value)
     tree[pos] = max(tree[2 * pos + 1], tree[2 * pos + 2])
+```
 
 Keterangan :
 Indeks adalah indeks asli dari elemen saat ini. Jika indeks tidak ada dalam rentang yang ditentukan, kembalikan saja. Jika rendah == tinggi, maka posisi saat ini harus diperbarui ke nilainya.
 Fungsi ini digunakan untuk membangun pohon segmen (segment tree) rekursif. Pohon segmen adalah struktur data yang digunakan untuk mempercepat operasi kueri terhadap rentang elemen dalam sebuah array.
-
 Fungsi menerima enam parameter: `tree` (array yang merepresentasikan pohon segmen), `pos` (posisi saat ini dalam pohon segmen), `low` (batas bawah rentang yang sedang diproses), `high` (batas atas rentang yang sedang diproses), `index` (indeks elemen yang akan diubah nilai), dan `value` (nilai baru yang akan diset pada indeks tersebut).
 Jika `index` berada di luar rentang yang sedang diproses (`index < low` atau `index > high`), maka fungsi berhenti dan tidak melakukan apa-apa.
 Jika `low` sama dengan `high`, ini berarti fungsi telah mencapai daun pohon segmen, dan nilai pada posisi `pos` dalam array `tree` diatur ke nilai `value`. Ini merupakan kasus dasar rekursi.
@@ -112,7 +120,9 @@ Rekursif memanggil `buildTree` untuk anak kiri (posisi `2 * pos + 1`) dengan ren
 Setelah kedua anak selesai diproses, nilai pada posisi `pos` diatur menjadi maksimum dari nilai anak kiri dan anak kanan (`tree[pos] = max(tree[2 * pos + 1], tree[2 * pos + 2])`).
 Fungsi ini membangun pohon segmen yang merepresentasikan array, dengan setiap simpul (node) menyimpan nilai maksimum dari rentang yang sesuai.
 
-Function to query the Segment tree and return the value for a given range
+- Function to query the Segment tree and return the value for a given range
+
+```
 def findMax(tree, pos, low, high, start, end):
 if low >= start and high <= end:
 return tree[pos]
@@ -121,6 +131,8 @@ return 0
 mid = (high + low) // 2
 return max(findMax(tree, 2 _ pos + 1, low, mid, start, end),
 findMax(tree, 2 _ pos + 2, mid + 1, high, start, end))
+```
+
 Keterangan :
 Query: Sama seperti fungsi kueri pohon Segmen. Jika rentang saat ini sepenuhnya berada di dalam rentang kueri, kembalikan nilai posisi saat ini. Jika di luar batas, kembalikan nilai minimum yaitu 0 dalam kasus ini. Tumpang tindih sebagian. Panggil findMax pada node anak secara rekursif dan kembalikan maksimal keduanya.
 Fungsi `findMax` digunakan untuk melakukan kueri pada pohon segmen dan mengembalikan nilai maksimum dalam rentang tertentu. Berikut adalah penjelasan singkat tentang kode tersebut:
@@ -132,7 +144,9 @@ Rekursif memanggil `findMax` untuk anak kiri (posisi `2 * pos + 1`) dengan renta
 Kembalikan nilai maksimum antara hasil kueri anak kiri dan anak kanan menggunakan fungsi `max`.
 Fungsi ini memungkinkan untuk mencari nilai maksimum dalam rentang tertentu dalam pohon segmen yang telah dibangun sebelumnya.
 
-Function to find Longest Increasing Sequence
+- Function to find Longest Increasing Sequence
+
+```
 def findLIS(arr):
 n = len(arr)
 p = [(arr[i], i) for i in range(n)]
@@ -143,6 +157,8 @@ for i in range(n):
 buildTree(tree, 0, 0, n - 1, p[i][1],
 findMax(tree, 0, 0, n - 1, 0, p[i][1]) + 1)
 return tree[0]
+```
+
 Keterangan :
 Array berpasangan menyimpan bilangan bulat dan indeks di p[i]. Mengurutkan array berdasarkan peningkatan urutan elemen. Menghitung panjang segment-tree. Menginisialisasi pohon dengan nol. Membangun segment-tree, simpul akarnya berisi panjang LIS untuk n elemen.
 Fungsi `findLIS` (Longest Increasing Subsequence) digunakan untuk mencari panjang maksimum dari subsequence yang terurut secara ascending dalam sebuah array. Berikut adalah penjelasan singkat kode tersebut:
@@ -154,9 +170,13 @@ Iterasi melalui setiap elemen `p` (pasangan nilai dan indeks) dan gunakan fungsi
 Kembalikan nilai di posisi 0 dalam array `tree`, yang akan berisi panjang maksimum dari subsequence yang terurut secara ascending.
 Fungsi ini menggunakan pohon segmen untuk menghitung panjang maksimum subsequence yang terurut secara ascending dari array asli.
 
-Sequence of Number of Array and print the Length of the LIS
+- Sequence of Number of Array and print the Length of the LIS\
+
+```
 arr = [4, 1, 13, 7, 0, 2, 8, 11, 3]
 print("The array is: " + str(arr))
 print("The Length of the LIS is:", findLIS(arr))
+```
+
 Keterangan :
 Sesuai dengan soal praktikum yang diberikan. Dideklarasikan array yang berisi urutan bilangan : 4, 1, 13, 7, 0, 2, 8, 11, 3. Selanjutnya Array tersebut akan di cetak pada output dan Length dari Longest Increasing Subsequence dari urutan bilangan tersebut adalah 4.
